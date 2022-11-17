@@ -82,9 +82,16 @@ async function run() {
      //delete cart product
      app.delete('/cart' , async(req,res)=>{
       const id = req.body._id;
-      const query = {_id:id};
-      const result = await cartCollection.deleteOne(query);
-      res.send(result )
+      if(id){
+        const query = {_id:id};
+        const result = await cartCollection.deleteOne(query);
+        res.send(result)
+      }
+      else{
+        const query = {img:{$regex:"https"}};
+        const result = await cartCollection.deleteMany(query);
+        res.send(result )
+      } 
     })
   }
   
