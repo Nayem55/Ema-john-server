@@ -25,6 +25,13 @@ async function run() {
     const cartCollection = client.db("Ema-John-main").collection("cart");
 
     //get products
+    app.get("/allproducts", async (req,res)=>{
+      const query = {};
+      const cursor = productCollection.find(query);
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+    //get products with pagination
     app.get("/products", async (req, res) => {
       const page = parseInt(req.query.page);
       const size = parseInt(req.query.size);
