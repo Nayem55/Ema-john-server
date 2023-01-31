@@ -42,7 +42,7 @@ async function run() {
         products = await cursor.skip(page*size).limit(size).toArray();
       }
       else{
-        products = await cursor.toArray();
+        products = await cursor.limit(10).toArray();
       }
       res.send(products);
     });
