@@ -20,7 +20,11 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    await client.connect();
+    await client.connect((err)=>{
+      app.listen(port, () => {
+        console.log("Listening at port", port);
+      });
+    });
     const productCollection = client.db("Ema-John-main").collection("products");
     const cartCollection = client.db("Ema-John-main").collection("cart");
 
@@ -106,6 +110,4 @@ app.get("/", (req, res) => {
   res.send("Ema-john server running");
 });
 
-app.listen(port, () => {
-  console.log("Listening at port", port);
-});
+
